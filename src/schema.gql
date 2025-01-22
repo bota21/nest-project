@@ -3,17 +3,28 @@
 # ------------------------------------------------------
 
 type Book {
-  id: ID!
-  name: String!
-  author: String!
-  price: Float!
-  inStock: Boolean!
+  id: ID
+  name: String
+  author: String
+  genre: String
+  price: Float
+  inStock: Boolean
 }
 
 type Query {
-  books: [Book!]!
+  books(filter: BookFilterInput): [Book!]!
+}
+
+input BookFilterInput {
+  _id: ID
+  name: String
+  author: String
+  genre: String
+  price: Float
+  inStock: Boolean
 }
 
 type Mutation {
-  create: [Book!]!
+  create: Book!
+  update: [Book!]!
 }

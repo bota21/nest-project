@@ -1,10 +1,10 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Field, ID, InputType } from '@nestjs/graphql';
 import { genreTypes } from '../model/bookModel';
 
-@ObjectType()
-export class Book {
+@InputType()
+export class BookFilterInput {
   @Field(() => ID, { nullable: true })
-  id: string;
+  _id: string;
 
   @Field({ nullable: true })
   name: string;

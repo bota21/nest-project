@@ -1,6 +1,7 @@
-import { Resolver, Query, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { Book } from '../types/book.type';
 import { BooksService } from '../books.service';
+import { BookFilterInput } from '../types/bookFilter.type';
 
 @Resolver(() => Book)
 export class BooksResolver {
@@ -11,9 +12,22 @@ export class BooksResolver {
     return await this.booksService.findAll();
   }
 
-  @Mutation(() => [Book])
-  async create(book: Book) {
+  @Query(() => [Book], { name: 'books' })
+  async findBooks(
+    @Args('filter', { nullable: true }) filter?: BookFilterInput,
+  ): Promise<Book[]> {
+    return this.booksService.findByFilter(filter);
+  }
+
+  @Mutation(() => Book)
+  async create(book: Book): Promise<Book> {
     const newBook = await this.booksService.create(book);
-    return await newBook.save();
+    return newBook.save();
+  }
+
+  @Mutation(() => [Book])
+  async update(book: Book): Promise<Book> {
+    const editedBook = await this.booksService.updateById(book);
+    return await editedBook.save();
   }
 }

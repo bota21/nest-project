@@ -1,5 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+export enum genreTypes {
+  fiction = 'Fiction',
+  Mystery = 'Mystery',
+  Thriller = 'Thriller',
+  Science = 'Science',
+  Fantasy = 'Fantasy',
+  Romance = 'Romance',
+  Historical = 'Historical',
+}
+
 @Schema({ collection: 'books' })
 export class BookSchema {
   @Prop()
@@ -10,6 +20,9 @@ export class BookSchema {
 
   @Prop()
   author: string;
+
+  @Prop({ index: true, enum: genreTypes, type: String })
+  genre: genreTypes;
 
   @Prop()
   price: number;
