@@ -6,25 +6,55 @@ type Book {
   id: ID
   name: String
   author: String
-  genre: String
+  genre: GenreTypes
   price: Float
   inStock: Boolean
 }
 
+"""Жанры книг"""
+enum GenreTypes {
+  Fiction
+  Mystery
+  Thriller
+  Science
+  Fantasy
+  Romance
+  Historical
+}
+
 type Query {
-  books(filter: BookFilterInput): [Book!]!
+  getBooks(filter: BookFilterInput): [Book!]!
 }
 
 input BookFilterInput {
   _id: ID
   name: String
   author: String
-  genre: String
+  genre: GenreTypes
   price: Float
   inStock: Boolean
 }
 
 type Mutation {
-  create: Book!
-  update: [Book!]!
+  createBook(input: CreateBook!): Book!
+  updateBook(input: UpdateBook!): Book!
+  deleteBook(id: String!): Book!
+}
+
+input CreateBook {
+  id: ID
+  name: String!
+  author: String!
+  genre: GenreTypes!
+  price: Float!
+  inStock: Boolean!
+}
+
+input UpdateBook {
+  id: ID
+  name: String
+  author: String
+  genre: GenreTypes
+  price: Float
+  inStock: Boolean
 }

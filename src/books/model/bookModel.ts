@@ -1,7 +1,8 @@
+import { registerEnumType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export enum genreTypes {
-  fiction = 'Fiction',
+  Fiction = 'Fiction',
   Mystery = 'Mystery',
   Thriller = 'Thriller',
   Science = 'Science',
@@ -9,6 +10,11 @@ export enum genreTypes {
   Romance = 'Romance',
   Historical = 'Historical',
 }
+
+registerEnumType(genreTypes, {
+  name: 'GenreTypes',
+  description: 'Жанры книг',
+});
 
 @Schema({ collection: 'books' })
 export class BookSchema {
@@ -21,7 +27,7 @@ export class BookSchema {
   @Prop()
   author: string;
 
-  @Prop({ index: true, enum: genreTypes, type: String })
+  @Prop(() => genreTypes)
   genre: genreTypes;
 
   @Prop()

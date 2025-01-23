@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, registerEnumType } from '@nestjs/graphql';
+import { Field, ID, InputType, registerEnumType } from '@nestjs/graphql';
 import { genreTypes } from '../model/bookModel';
 
 registerEnumType(genreTypes, {
@@ -6,8 +6,8 @@ registerEnumType(genreTypes, {
   description: 'Жанры книг',
 });
 
-@ObjectType()
-export class Book {
+@InputType()
+export class UpdateBook {
   @Field(() => ID, { nullable: true })
   id: string;
 

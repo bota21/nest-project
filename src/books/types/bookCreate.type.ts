@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, registerEnumType } from '@nestjs/graphql';
+import { Field, ID, InputType, registerEnumType } from '@nestjs/graphql';
 import { genreTypes } from '../model/bookModel';
 
 registerEnumType(genreTypes, {
@@ -6,23 +6,23 @@ registerEnumType(genreTypes, {
   description: 'Жанры книг',
 });
 
-@ObjectType()
-export class Book {
+@InputType()
+export class CreateBook {
   @Field(() => ID, { nullable: true })
   id: string;
 
-  @Field({ nullable: true })
+  @Field()
   name: string;
 
-  @Field({ nullable: true })
+  @Field()
   author: string;
 
-  @Field(() => genreTypes, { nullable: true })
+  @Field(() => genreTypes)
   genre: genreTypes;
 
-  @Field({ nullable: true })
+  @Field()
   price: number;
 
-  @Field({ nullable: true })
+  @Field()
   inStock: boolean;
 }
