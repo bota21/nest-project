@@ -9,25 +9,25 @@ export class BooksResolver {
 
   @Query(() => [Book], { name: 'books' })
   async findAll(): Promise<Book[]> {
-    return await this.booksService.findAll();
+    return await this.booksService.getAllBooks();
   }
 
   @Query(() => [Book], { name: 'books' })
   async findBooks(
     @Args('filter', { nullable: true }) filter?: BookFilterInput,
   ): Promise<Book[]> {
-    return this.booksService.findByFilter(filter);
+    return this.booksService.getBookByFilter(filter);
   }
 
   @Mutation(() => Book)
   async create(book: Book): Promise<Book> {
-    const newBook = await this.booksService.create(book);
+    const newBook = await this.booksService.createBook(book);
     return newBook.save();
   }
 
   @Mutation(() => [Book])
   async update(book: Book): Promise<Book> {
-    const editedBook = await this.booksService.updateById(book);
+    const editedBook = await this.booksService.updateBook(book);
     return await editedBook.save();
   }
 }
