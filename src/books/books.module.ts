@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { BooksService } from './books.service';
-import { BooksController } from './books.controller';
 import { BookSchema, BookSchemaModel } from './model/bookModel';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BooksResolver } from './resolver/book.resolver';
@@ -12,7 +11,6 @@ import { BooksRepository } from './books.repository';
       { name: BookSchema.name, schema: BookSchemaModel },
     ]),
   ],
-  controllers: [BooksController],
   providers: [BooksService, BooksResolver, BooksRepository],
 })
 export class BooksModule {}
